@@ -1,4 +1,4 @@
-# --uac-admin
+ # --uac-admin
 
 import json
 import sys
@@ -8,9 +8,9 @@ hosts = 'C:\Windows\System32\drivers\etc\hosts'
 
 def changeHosts(siteURL):
     try:
-        with open(hosts, 'a', 'utf-8') as h:
+        with open(hosts, 'a', encoding='utf-8') as h:
             h.write(f'\n127.0.0.1 {siteURL}')
-        return f"Congcongratulation! You've just blocked {siteURL}!"
+        return f"Congratulation! You've just blocked {siteURL}!"
     except Exception as e:
         return f'Oops! ERROR(changeHosts): {e}'
 
