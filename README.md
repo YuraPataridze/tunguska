@@ -1,4 +1,4 @@
-# TUNGUSKA (hosts-file blocker)
+# TUNGUSKA Siteblocker
 
 `main.py` is a small **Tkinter desktop GUI** that helps you **permanently block a site/domain** on your Windows machine by appending an entry to the system **hosts** file.
 
