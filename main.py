@@ -2,34 +2,73 @@
 
 import json
 import sys
+import tkinter as tk
+from tkinter import ttk, messagebox
+import webbrowser
+import subprocess
 
-current_ver = 'v1.0.0'
+current_ver = 'v1.1.0'
 hosts = 'C:\Windows\System32\drivers\etc\hosts'
 
 def changeHosts(siteURL):
-    try:
-        with open(hosts, 'a', encoding='utf-8') as h:
-            h.write(f'\n127.0.0.1 {siteURL}')
-        return f"Congratulation! You've just blocked {siteURL}!"
-    except Exception as e:
-        return f'Oops! ERROR(changeHosts): {e}'
+    if siteURL == "" or siteURL == " " or not "." in siteURL or " " in siteURL:
+        messagebox.showerror('Enter correct url', f'It seems {siteURL} isnt a valid url...')
+        return
+
+    answer = messagebox.askyesno('Are You sure?', 'You really want to PERMANENTLY block ' + siteURL + "?")
+
+    if not answer:
+        root = tk.Tk()
+        root.withdraw()
+
+        messagebox.showinfo('You declined blocking', 'You declined blocking ' + siteURL)
+    else:
+        try:
+            with open(hosts, 'a', encoding='utf-8') as h:
+                h.write(f'\n127.0.0.1 {siteURL.strip()}')
+            messagebox.showinfo('Success', f'{siteURL} was successfully blocked on Your PC')
+            webbrowser.open_new_tab('https://github.com/YuraPataridze/tunguska')
+        except Exception as e:
+            return f'Unknown error: {e}'
 
 def main():
-    print(f"Hello, It's TUNGUSKA {current_ver}")
-    action = input('Input an action below:\n1 - Input site URL I want to block\n')
-    if action == '1':
-        siteURL = input('Input a site URL (e.g., 1xbet.ru)')
-        answer = input(f"Are You seriously think it's good idea to block {siteURL}? Really, read each letter to check if it's exactly site URL You wanted to block!!!\n [Y/n]")
-        if answer == 'Y':
-            print(changeHosts(siteURL))
-            input('Press ENTER button to leave')
-            sys.exit(0)
-        elif answer == 'n':
-            input(f'Press ENTER button to leave and then start the TUNGUSKA {current_ver} again')
-            sys.exit(0)
-        else:
-            sys.exit(1)
-    else:
-      sys.exit(1)
+    root = tk.Tk()
+    root.title("TUNGUSKA " + current_ver)
+    root.geometry("400x200")
+    root.resizable(False, False)
 
-main()
+    main_frame = ttk.Frame(root, padding="20")
+    main_frame.pack(fill="both", expand=True)
+
+    label_instruction = ttk.Label(main_frame, text="Enter site url You want to block(e.g, 1xbet.com)")
+    label_instruction.pack(pady=(0, 5), anchor="w")
+
+    text_input = ttk.Entry(main_frame, width=30)
+    text_input.pack(fill="x", pady=(0, 15))
+    text_input.focus()
+
+    submit_button = ttk.Button(main_frame, text="Block it", command=lambda: changeHosts(text_input.get()))
+    submit_button.pack(pady=(0, 15))
+
+    spacer = ttk.Label(main_frame, text="")
+    spacer.pack(fill="both", expand=True)
+
+    footer_text = f"TUNGUSKA {current_ver} was created by YuraPataridze"
+    footer_label = tk.Label(
+        main_frame,
+        text=footer_text,
+        font=("Helvetica", 9, "underline"),
+        fg="blue",
+        cursor="hand2"
+    )
+    footer_label.pack(side="bottom", pady=(10, 0))
+
+    def openLink(event):
+        webbrowser.open_new_tab("https://github.com/YuraPataridze")
+
+    footer_label.bind("<Button-1>", openLink)
+
+    root.mainloop()
+
+if __name__ == "__main__":
+     main()
