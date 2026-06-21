@@ -1,6 +1,6 @@
 # TUNGUSKA Siteblocker
 
-`main.py` is a small **Tkinter desktop GUI** that helps you **permanently block a site/domain** on your Windows machine by appending an entry to the system **hosts** file.
+small **Tkinter desktop GUI** that helps you **permanently block a site/domain** on your Windows machine by appending an entry to the system **hosts** file.
 
 It provides a simple window where you type a domain (example: `1xbet.com`), confirm the action, and then the program adds a line like:
 
