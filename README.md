@@ -10,7 +10,7 @@ It provides a simple window where you type a domain (example: `1xbet.com`), conf
 
 ## What the app does
 
-1. Shows a GUI titled **“TUNGUSKA v1.1.0”**.
+1. Shows a GUI titled **“TUNGUSKA v2”**.
 2. Asks you to enter a **site URL/domain** (example shown: `1xbet.com`).
 3. When you click **“Block it”**:
    - It validates the input (must not be empty/blank, must contain a dot `.`, and must not contain spaces).
@@ -19,6 +19,9 @@ It provides a simple window where you type a domain (example: `1xbet.com`), conf
    - **`C:\Windows\System32\drivers\etc\hosts`**
    - using `open(..., 'a')` so it **adds a new line** instead of modifying an existing one.
 5. After writing, it shows a success message and opens the project’s GitHub page in your browser.
+
+## Additional file:
+created for blocking opening hosts file if needed
 
 ## How to use
 
