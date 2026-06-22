@@ -8,7 +8,7 @@ import webbrowser
 import subprocess
 
 current_ver = 'v1.1.0'
-hosts = 'C:\Windows\System32\drivers\etc\hosts'
+hosts_path = 'C:\Windows\System32\drivers\etc\hosts'
 
 def changeHosts(siteURL):
     if siteURL == "" or siteURL == " " or not "." in siteURL or " " in siteURL:
@@ -24,7 +24,7 @@ def changeHosts(siteURL):
         messagebox.showinfo('You declined blocking', 'You declined blocking ' + siteURL)
     else:
         try:
-            with open(hosts, 'a', encoding='utf-8') as h:
+            with open(hosts_path, 'a', encoding='utf-8') as h:
                 h.write(f'\n127.0.0.1 {siteURL.strip()}')
             messagebox.showinfo('Success', f'{siteURL} was successfully blocked on Your PC')
             webbrowser.open_new_tab('https://github.com/YuraPataridze/tunguska')
