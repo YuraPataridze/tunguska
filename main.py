@@ -1,14 +1,26 @@
  # --uac-admin
-
-import json
+import os
 import sys
 import tkinter as tk
 from tkinter import ttk, messagebox
 import webbrowser
 import subprocess
+import threading
 
 current_ver = 'v1.1.0'
-hosts_path = 'C:\Windows\System32\drivers\etc\hosts'
+hosts_path = r'C:\Windows\System32\drivers\etc\hosts'
+
+def blockHostsFile():
+    tasks = subprocess.check_output('tasklist').splitlines()
+    currentLenOfTasks = len(tasks)
+
+    while True:
+        newListOftasks = subprocess.check_output('tasklist').splitlines()
+        if len(newListOftasks) > currentLenOfTasks:
+            for i in newListOftasks:
+                if b'notepad.exe' in i:
+                    os.system('taskkill /f /im notepad.exe')
+        currentLenOfTasks = len(newListOftasks)
 
 def changeHosts(siteURL):
     if siteURL == "" or siteURL == " " or not "." in siteURL or " " in siteURL:
@@ -36,6 +48,11 @@ def main():
     root.title("TUNGUSKA " + current_ver)
     root.geometry("400x200")
     root.resizable(False, False)
+
+    #чтоб оно вообще открылось ебать меня блять заебало всё меян уже
+    root.deiconify()
+    root.lift()
+    root.focus_force()
 
     main_frame = ttk.Frame(root, padding="20")
     main_frame.pack(fill="both", expand=True)
@@ -71,4 +88,7 @@ def main():
     root.mainloop()
 
 if __name__ == "__main__":
-     main()
+    monitoring = threading.Thread(target=blockHostsFile, daemon=True)
+    monitoring.start()
+
+    main()
