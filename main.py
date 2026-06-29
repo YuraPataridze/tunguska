@@ -20,7 +20,7 @@ def changeHosts(siteURL):
     else:
         try:
             with open(hosts_path, 'a', encoding='utf-8') as h:
-                h.write(f'\n127.0.0.1 {siteURL.strip()}')
+                h.write(f'\n10.255.255.1 {siteURL.strip()}')
             messagebox.showinfo('Success', f'{siteURL} was successfully blocked on Your PC')
             webbrowser.open_new_tab('https://github.com/YuraPataridze/tunguska')
         except Exception as e:
