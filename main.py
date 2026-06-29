@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import webbrowser
 
-current_ver = 'v2.0.0'
+current_ver = 'v2.0.1'
 hosts_path = r'C:\Windows\System32\drivers\etc\hosts'
 
 def changeHosts(siteURL):
